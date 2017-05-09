@@ -18,7 +18,6 @@ myKeys.keydown = [];
 
 //sets the corresponding element in the array to true based on keyCode
 window.addEventListener("keydown",function(e){
-    //console.log("keydown=" + e.keyCode);
 	myKeys.keydown[e.keyCode] = true;
 });
 
