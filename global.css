@@ -3,8 +3,18 @@ body {
     padding: 0px;
 }
 
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 canvas {
     width: 800px;
     height: 800px;
-    margin: auto;
+}
+
+audio {
+    display: none;
 }

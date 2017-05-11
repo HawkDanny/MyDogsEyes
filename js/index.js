@@ -45,6 +45,10 @@ let songState;
 let canvas;
 let ctx;
 
+//audio information
+let audio;
+let audioTag;
+
 //Dynamic information
 let fontSizeMin;
 let fontSizeMax;
@@ -73,9 +77,11 @@ function init() {
     canvas.height = 800;
 
     fontSizeMin = 8;
-    fontSizeMax = 36;
-    kerning = 5;
-    lineheight = 12;
+    fontSizeMax = 24;
+    kerning = 2;
+    lineheight = 6;
+
+    initAudio();
 
     //Kick off the project
     update();
@@ -90,8 +96,8 @@ function populateLyrics() {
     lyrics[4] = "My dog's eyes ";
     lyrics[5] = "Water being cut at the bow of a boat ";
     lyrics[6] = "Looking into deep, clear water ";
-    lyrics[7] = "Red velvet ";
-    lyrics[8] = "The moon in the clouds";
+    lyrics[7] = "velvet Red ";
+    lyrics[8] = "The moon in the clouds ";
     lyrics[9] = "These were children who hadn't yet lost their sense of wonder ";
     lyrics[10] = "They hadn't become unseeing, and unfeeling ";
     lyrics[11] = "A fast train rushing ";
@@ -105,31 +111,31 @@ function loadImages() {
     images[0] = new Image();
     images[0].src = "media/start.png"
     images[1] = new Image();
-    images[1].src = "media/blue.png"
+    images[1].src = "media/river.jpg"
     images[2] = new Image();
-    images[2].src = "media/start.png"
+    images[2].src = "media/chimney.jpg"
     images[3] = new Image();
-    images[3].src = "media/blue.png"
+    images[3].src = "media/redroof.jpg"
     images[4] = new Image();
-    images[4].src = "media/start.png"
+    images[4].src = "media/dog.jpg"
     images[5] = new Image();
-    images[5].src = "media/blue.png"
+    images[5].src = "media/start.png"
     images[6] = new Image();
-    images[6].src = "media/start.png"
+    images[6].src = "media/water.jpg"
     images[7] = new Image();
-    images[7].src = "media/blue.png"
+    images[7].src = "media/redvelvet.jpg"
     images[8] = new Image();
-    images[8].src = "media/start.png"
+    images[8].src = "media/moon.jpg"
     images[9] = new Image();
-    images[9].src = "media/blue.png"
+    images[9].src = "media/start.png"
     images[10] = new Image();
     images[10].src = "media/start.png"
     images[11] = new Image();
-    images[11].src = "media/blue.png"
+    images[11].src = "media/train.jpg"
     images[12] = new Image();
     images[12].src = "media/start.png"
     images[13] = new Image();
-    images[13].src = "media/blue.png"
+    images[13].src = "media/start.png"
     images[14] = new Image();
     images[14].src = "media/start.png"
 
@@ -186,6 +192,13 @@ function checkImages() {
     }
 }
 
+//Create an audio context and set up some audio thingamajigs
+function initAudio() {
+    audio = new AudioManager();
+
+    audioTag = document.querySelector("audio");
+}
+
 //Called once per frame
 function update() {
     //Call update once per frame
@@ -222,6 +235,7 @@ function updateTitle() {
     //Move to the next state
     if (myKeys.keydown[32]) {
         if (areImagesPrepped) {
+            audio.startSong();
             state = STATE.SONG;
         } else {
             state = STATE.LOADING;
@@ -239,6 +253,7 @@ function updateLoading() {
 
     //If the images have been prepped, then change state
     if (areImagesPrepped) {
+        audio.startSong();
         state = STATE.SONG;
     }
 }
@@ -249,53 +264,87 @@ function updateSong() {
     switch (songState) {
         case 0:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 5)
+                ++songState;
             break;
         case 1:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 25)
+                ++songState;
             break;
         case 2:
+        /*
+            fontSizeMin = 8;
+            fontSizeMax = 100;
+            kerning = 4;
+            lineheight = 8;*/
             renderTextAsImage(images[songState], imageData[songState]);
-            break;
+            if (audioTag.currentTime > 38)
+                ++songState;
+            break; //smoke rising from a chimney
         case 3:
+        /*
+            fontSizeMin = 8;
+            fontSizeMax = 24;
+            kerning = 2;
+            lineheight = 6;*/
             renderTextAsImage(images[songState], imageData[songState]);
-            break;
+            if (audioTag.currentTime > 50)
+                ++songState;
+            break; //Red roofs in the trees
         case 4:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 62)
+                ++songState;
             break;
         case 5:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 71)
+                ++songState;
             break;
         case 6:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 76)
+                ++songState;
             break;
         case 7:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 88)
+                ++songState;
             break;
         case 8:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 101)
+                ++songState;
             break;
         case 9:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 114)
+                ++songState;
             break;
         case 10:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 126)
+                ++songState;
             break;
         case 11:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 153) //fast train rushing
+                ++songState;
             break;
         case 12:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 160) //asked same question today
+                ++songState;
             break;
         case 13:
             renderTextAsImage(images[songState], imageData[songState]);
+            if (audioTag.currentTime > 174) //mechanized world
+                ++songState;
             break;
         case 14:
             renderTextAsImage(images[songState], imageData[songState]);
-            break;
-    }
-
-    if (myKeys.keydown[32]) {
-        ++songState;
+            break; //sense of wonder
     }
 };
 
